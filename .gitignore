@@ -1,0 +1,58 @@
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Compiled files
+*.class
+*.jar
+*.war
+*.ear
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+__pycache__/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.db
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.tar
+*.zip
+*.rar
+
+# Build directories
+/bin/
+/build/
+/dist/
+/out/
+/target/
+/node_modules/
+/.gradle/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Coverage reports
+/coverage/
+/.nyc_output/
+
+# Temporary files
+/temp/
+/tmp/
