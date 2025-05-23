@@ -7,21 +7,15 @@ private:
     double side2;
     double side3;
 
-    double calculatePerimeter();
     void setSide1(double input);
     void setSide2(double input);
     void setSide3(double input);
+    void setPerimeter();
+    double calculatePerimeter();
+
 public:
-    triangle(/* args */);
+    triangle();
+    triangle(const char *input);
     ~triangle();
+    double getPerimeter() const;
 };
-
-triangle::triangle(/* args */)
-{
-}
-
-triangle::~triangle()
-{
-}
-
-triangle::getPerimeter(double perimeter);
