@@ -1,13 +1,13 @@
 add_library(2D-Figures STATIC
     # Header files
-    "Contracts/circle.hpp"
-    "Contracts/triangle.hpp"
-    "Contracts/figure.hpp"
+    "contracts/circle.hpp"
+    "contracts/triangle.hpp"
+    "contracts/figure.hpp"
 
     # Source files
-    "Entities/circle.cpp"
-    "Entities/triangle.cpp"
-    "Entities/figure.cpp"
+    #"entities/circle.cpp"
+    "entities/triangle.cpp"
+    #"entities/figure.cpp"
 )
 
 target_include_directories(

@@ -1,5 +1,6 @@
+#include "contracts/stringConvertible.hpp"
 
-class triangle
+class triangle : public stringConvertible
 {
 private:
     double perimeter;
@@ -18,4 +19,5 @@ public:
     triangle(const char *input);
     ~triangle();
     double getPerimeter() const;
+    char* toString();
 };

@@ -1,16 +1,6 @@
 class figure
 {
-private:
-    /* data */
 public:
-    figure(/* args */);
-    ~figure();
+    virtual double perimeter() const = 0;
+    virtual ~figure() = default;
 };
-
-figure::figure(/* args */)
-{
-}
-
-figure::~figure()
-{
-}
