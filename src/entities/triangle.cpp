@@ -61,6 +61,7 @@ triangle::triangle(const char *input)
         side1 = side2 = side3 = perimeterField = 0;
     }
 }
+
 void triangle::setSide1(double input)
 {
     side1 = input;
@@ -81,11 +82,6 @@ void triangle::setPerimeter()
     perimeterField = calculatePerimeter();
 }
 
-double triangle::calculatePerimeter()
-{
-    return side1 + side2 + side3;
-}
-
 double triangle::perimeter() const
 {
     return perimeterField;
@@ -97,4 +93,8 @@ char *triangle::toString()
     oss << "triangle" << side1 << side2 << side3;
 
     return new char[oss.str().length() + 1];
+}
+double triangle::calculatePerimeter()
+{
+    return side1 + side2 + side3;
 }
