@@ -6,20 +6,17 @@
 
 triangle::triangle() = default;
 
-triangle::triangle(const char *input)
+triangle::triangle(const std::string input)
     : side1(0), side2(0), side3(0), perimeterField(0)
 {
     try
     {
-        if (!input || !input[0])
-            throw std::invalid_argument("Invalid input: Input is null or empty");
+        if (input.empty())
+            throw std::invalid_argument("Invalid input: Input is empty");
 
         std::istringstream ss(input);
         std::string type;
         double s1, s2, s3;
-
-        if (!(ss >> type) || type != "triangle")
-            throw std::invalid_argument("Invalid input: Missing or incorrect shape type");
 
         if (!(ss >> s1))
             throw std::invalid_argument("Invalid input: Missing first side");
@@ -80,12 +77,12 @@ void triangle::setPerimeter()
     perimeterField = calculatePerimeter();
 }
 
-double triangle::perimeter() const //override
+double triangle::perimeter() const // override
 {
     return perimeterField;
 }
 
-std::string triangle::toString() const //override
+std::string triangle::toString() const // override
 {
     std::ostringstream oss;
     oss << "triangle" << side1 << side2 << side3;

@@ -17,7 +17,7 @@ private:
 
 public:
     triangle();
-    triangle(const char *input);
+    triangle(const std::string input);
     //~triangle();
     double perimeter() const override;
     std::string toString() const override;

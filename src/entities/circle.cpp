@@ -6,20 +6,17 @@
 
 circle::circle() = default;
 
-circle::circle(const char *input)
+circle::circle(const std::string input)
     : radius(), length()
 {
     try
     {
-        if (!input || !input[0])
+        if(input.empty())
             throw std::invalid_argument("Invalid input: Input is null or empty");
 
         std::stringstream ss(input);
         double radius;
         std::string type;
-
-        if (!(ss >> type) || type != "triangle")
-            throw std::invalid_argument("Invalid input: Missing or incorrect shape type");
 
         if (!(ss >> radius))
             throw std::invalid_argument("Invalid input: Missing radius");
