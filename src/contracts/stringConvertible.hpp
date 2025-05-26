@@ -3,6 +3,6 @@
 class stringConvertible
 {
 public:
-    virtual std::string toString() const;
-    //virtual ~stringConvertible();
+    virtual std::string toString() const = 0;
+    //virtual ~stringConvertible() = default;
 };
