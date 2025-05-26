@@ -1,16 +1,8 @@
-class figure
+#include "contracts/stringConvertible.hpp"
+
+class figure : public stringConvertible
 {
-private:
-    /* data */
 public:
-    figure(/* args */);
-    ~figure();
+    virtual double perimeter() const = 0;
+    virtual ~figure() = default;
 };
-
-figure::figure(/* args */)
-{
-}
-
-figure::~figure()
-{
-}

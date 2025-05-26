@@ -11,9 +11,7 @@ target_link_libraries(
 target_sources(
     unit-tests
     PRIVATE
-    "ucn_tests.cpp"
-    "registration_plate_tests.cpp"
-    "vehicle_register_tests.cpp"
+    "triangle-tests.cpp"
 )
 
 # Include the Catch2 discovery module
