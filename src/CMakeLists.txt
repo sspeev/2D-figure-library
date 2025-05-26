@@ -8,6 +8,18 @@ add_library(2D-Figures STATIC
     # Source files
     "entities/circle.cpp"
     "entities/triangle.cpp"
+
+    # factory files
+    #{
+        # factory interfaces
+        "factory/interfaces/figure_factory.hpp"
+        "factory/interfaces/random_figure_factory.hpp"
+
+        #factory implemamentations
+        "factory/implementations/random_figure_factory.cpp"
+        
+    #}
+
 )
 
 target_include_directories(

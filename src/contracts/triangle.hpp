@@ -1,3 +1,5 @@
+#ifndef TRIANGLE_HPP
+#define TRIANGLE_HPP
 #include "contracts/figure.hpp"
 #include <string>
 
@@ -22,3 +24,5 @@ public:
     double perimeter() const override;
     std::string toString() const override;
 };
+
+#endif
