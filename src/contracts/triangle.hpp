@@ -1,4 +1,5 @@
 #include "contracts/figure.hpp"
+#include <string>
 
 class triangle : public figure
 {
@@ -19,5 +20,5 @@ public:
     triangle(const char *input);
     //~triangle();
     double perimeter() const override;
-    char* toString();
+    std::string toString() const override;
 };

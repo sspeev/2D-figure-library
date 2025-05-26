@@ -1,4 +1,5 @@
 #include "contracts/figure.hpp"
+#include <string>
 
 class circle : public figure
 {
@@ -14,5 +15,5 @@ public:
     circle(const char *input);
     //~circle();
     double perimeter() const override;
-    // char* toString();
+    std::string toString() const override;
 };

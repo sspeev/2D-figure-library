@@ -16,6 +16,7 @@ cmake --build .
 ```
 
 ## Structure
+```bash
 project/
 ├── CMakeLists.txt                  # Root CMake file
 ├── README.md
@@ -36,7 +37,7 @@ project/
 └── tests/
     ├── CMakeLists.txt              # Tests CMake file
     └── tests for the code
-
+```
 ## Running
 ```bash
 ./bin/myproject

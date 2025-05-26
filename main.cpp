@@ -4,6 +4,6 @@
 
 int main()
 {
-    triangle triangle("trianle 10 20 30");
+    triangle triangle("triangle 10 20 30");
     std::cout << "test";
 }
