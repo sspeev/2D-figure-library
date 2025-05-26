@@ -1,4 +1,4 @@
-#include "contracts/string_to_figure.hpp"
+#include "utilities/string_to_figure.hpp"
 #include "contracts/figure.hpp"
 #include "contracts/triangle.hpp"
 #include "contracts/circle.hpp"

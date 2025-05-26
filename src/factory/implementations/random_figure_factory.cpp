@@ -2,22 +2,25 @@
 #include "contracts/figure.hpp"
 #include "contracts/circle.hpp"
 #include "contracts/triangle.hpp"
-#include <cstdlib>  // for std::rand and std::srand
-#include <ctime>    // for std::time
+#include <random>
 #include <string>
 #include <sstream>
 
+// Static random engine initialized once
+static std::mt19937 generator{std::random_device{}()};
+
 figure* random_figure_factory::create() //override
 {
-    // Seed the random number generator with current time
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    // Choose between circle (0) or triangle (1) with equal probability
+    std::uniform_int_distribution<int> figure_type_distribution(0, 1);
+    int figure_type = figure_type_distribution(generator);
     
-    // Randomly choose between circle (0) or triangle (1)
-    int figure_type = std::rand() % 2;
+    // Random distribution for figure parameters between 1 and 10
+    std::uniform_real_distribution<double> param_distribution(1.0, 10.0);
     
     if (figure_type == 0) {
-        // Create a circle with random radius between 1 and 10
-        double radius = 1.0 + static_cast<double>(std::rand()) / RAND_MAX * 9.0;
+        // Create a circle with random radius
+        double radius = param_distribution(generator);
         
         // Convert to string format for the constructor
         std::ostringstream oss;
@@ -26,15 +29,16 @@ figure* random_figure_factory::create() //override
     }
     else {
         // Create triangle with random sides
-        double a = 1.0 + static_cast<double>(std::rand()) / RAND_MAX * 9.0;
-        double b = 1.0 + static_cast<double>(std::rand()) / RAND_MAX * 9.0;
+        double a = param_distribution(generator);
+        double b = param_distribution(generator);
         
         // Calculate valid range for third side to satisfy triangle inequality
         double min_c = std::abs(a - b) + 0.1;
         double max_c = a + b - 0.1;
         
-        // Generate random third side
-        double c = min_c + static_cast<double>(std::rand()) / RAND_MAX * (max_c - min_c);
+        // Generate random third side within valid range
+        std::uniform_real_distribution<double> side_c_distribution(min_c, max_c);
+        double c = side_c_distribution(generator);
         
         // Convert to string format for the constructor
         std::ostringstream oss;
