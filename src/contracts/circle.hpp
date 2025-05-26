@@ -1,4 +1,6 @@
-class circle
+#include "contracts/figure.hpp"
+
+class circle : public figure
 {
 private:
     double radius;
@@ -6,10 +8,11 @@ private:
 
     double calcLength();
     void setRadius(double input);
+
 public:
     circle();
-    circle(const char* input);
-    ~circle();
-    double getLength();
-    //char* toString();
+    circle(const char *input);
+    //~circle();
+    double perimeter() const override;
+    // char* toString();
 };

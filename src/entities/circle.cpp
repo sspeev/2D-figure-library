@@ -15,7 +15,7 @@ circle::circle(const char *input)
     
 
 }
-double circle::getLength()
+double circle::perimeter() const
 {
     return length;
 }
@@ -32,5 +32,5 @@ double circle::calcLength()
 
 // char* circle::toString()
 // {
-//     return new char
+//     return new char[10];
 // }

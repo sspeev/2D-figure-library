@@ -7,7 +7,7 @@
 triangle::triangle() = default;
 
 triangle::triangle(const char *input)
-    : side1(0), side2(0), side3(0), perimeter(0)
+    : side1(0), side2(0), side3(0), perimeterField(0)
 {
     try
     {
@@ -58,7 +58,7 @@ triangle::triangle(const char *input)
     catch (const std::exception &e)
     {
         std::cerr << e.what() << '\n';
-        side1 = side2 = side3 = perimeter = 0;
+        side1 = side2 = side3 = perimeterField = 0;
     }
 }
 void triangle::setSide1(double input)
@@ -78,10 +78,23 @@ void triangle::setSide3(double input)
 
 void triangle::setPerimeter()
 {
-    perimeter = calculatePerimeter();
+    perimeterField = calculatePerimeter();
 }
 
 double triangle::calculatePerimeter()
 {
     return side1 + side2 + side3;
+}
+
+double triangle::perimeter() const
+{
+    return perimeterField;
+}
+
+char *triangle::toString()
+{
+    std::ostringstream oss;
+    oss << "triangle" << side1 << side2 << side3;
+
+    return new char[oss.str().length() + 1];
 }

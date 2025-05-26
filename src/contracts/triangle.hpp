@@ -1,9 +1,9 @@
-#include "contracts/stringConvertible.hpp"
+#include "contracts/figure.hpp"
 
-class triangle : public stringConvertible
+class triangle : public figure
 {
 private:
-    double perimeter;
+    double perimeterField;
     double side1;
     double side2;
     double side3;
@@ -17,7 +17,7 @@ private:
 public:
     triangle();
     triangle(const char *input);
-    ~triangle();
-    double getPerimeter() const;
+    //~triangle();
+    double perimeter() const override;
     char* toString();
 };
