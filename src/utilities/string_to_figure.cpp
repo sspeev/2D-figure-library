@@ -12,13 +12,13 @@ figure *string_to_figure::create_from(std::string representation)
 {
     if (representation.empty())
         throw std::invalid_argument("Invalid input: Input is null or empty");
-    
+
     std::istringstream iss(representation);
     std::string type;
 
-    if (!(iss >> type) || type != "triangle" || type != "circle")
+    if (!(iss >> type) || (type != "triangle" && type != "circle"))
         throw std::invalid_argument("Invalid input: Missing or incorrect shape type");
-        
+
     if (type == "triangle")
     {
         triangle *tri = new triangle(representation);
@@ -29,4 +29,7 @@ figure *string_to_figure::create_from(std::string representation)
         circle *circ = new circle(representation);
         return circ;
     }
+
+    // This should never be reached but is needed to avoid the warning
+    return nullptr;
 }

@@ -6,7 +6,7 @@ class stringConvertible
 {
 public:
     virtual std::string toString() const = 0;
-    //virtual ~stringConvertible() = default;
+    virtual ~stringConvertible() = default;
 };
 
 #endif
