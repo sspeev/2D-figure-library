@@ -12,6 +12,8 @@ target_sources(
     unit-tests
     PRIVATE
     "triangle-tests.cpp"
+    "circle-tests.cpp"
+    "factory-tests.cpp"
 )
 
 # Include the Catch2 discovery module
