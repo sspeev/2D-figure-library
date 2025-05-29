@@ -85,7 +85,7 @@ double triangle::perimeter() const // override
 std::string triangle::toString() const // override
 {
     std::ostringstream oss;
-    oss << "triangle" << side1 << side2 << side3;
+    oss << "triangle" << " " << side1 << " " << side2 << " " << side3;
 
     return oss.str();
 }
