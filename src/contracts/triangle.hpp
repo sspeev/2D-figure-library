@@ -20,6 +20,7 @@ private:
 public:
     triangle();
     triangle(const std::string input);
+    triangle(double side_a, double side_b, double side_c);
     //~triangle();
     double perimeter() const override;
     std::string toString() const override;

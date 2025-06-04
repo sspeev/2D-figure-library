@@ -1,35 +1,45 @@
 #include "utilities/string_to_figure.hpp"
-#include "contracts/figure.hpp"
-#include "contracts/triangle.hpp"
 #include "contracts/circle.hpp"
-
-#include <string>
+#include "contracts/triangle.hpp"
 #include <sstream>
+#include <string>
 
 string_to_figure::string_to_figure() = default;
 
 figure *string_to_figure::create_from(std::string representation)
 {
-    if (representation.empty())
-        throw std::invalid_argument("Invalid input: Input is null or empty");
-
     std::istringstream iss(representation);
-    std::string type;
+    std::string figure_type;
 
-    if (!(iss >> type) || (type != "triangle" && type != "circle"))
-        throw std::invalid_argument("Invalid input: Missing or incorrect shape type");
-
-    if (type == "triangle")
+    // Extract the figure type
+    if (!(iss >> figure_type))
     {
-        triangle *tri = new triangle(representation);
-        return tri;
-    }
-    else if (type == "circle")
-    {
-        circle *circ = new circle(representation);
-        return circ;
+        return nullptr;
     }
 
-    // This should never be reached but is needed to avoid the warning
-    return nullptr;
+    try
+    {
+        if (figure_type == "circle")
+        {
+            double radius;
+            if (iss >> radius && radius > 0)
+            {
+                return new circle(radius);
+            }
+        }
+        else if (figure_type == "triangle")
+        {
+            double a, b, c;
+            if (iss >> a >> b >> c)
+            {
+                return new triangle(a, b, c);
+            }
+        }
+    }
+    catch (const std::exception &)
+    {
+        return nullptr; // If an exception was thrown during creation, return nullptr
+    }
+
+    return nullptr; // If we reach here, the input was invalid
 }

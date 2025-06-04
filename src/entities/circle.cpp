@@ -37,6 +37,14 @@ circle::circle(const std::string input)
         radius = length = 0;
     }
 }
+circle::circle(double radius)
+    : radius(radius), length(calcLength())
+{
+    if (radius <= 0)
+    {
+        throw std::invalid_argument("Invalid input: Radius must be positive");
+    }
+}
 
 void circle::setRadius(double input)
 {

@@ -1,22 +1,28 @@
 #include "factory/interfaces/stream_figure_fractory.hpp"
-#include "contracts/figure.hpp"
 #include "utilities/string_to_figure.hpp"
-#include <istream>
-#include <iostream>
 #include <string>
 
-stream_figure_fractory::stream_figure_fractory(std::istream& is)
-    : input_stream(is)
+stream_figure_fractory::stream_figure_fractory(std::istream &istream)
+    : input_stream(istream)
 {
 }
 
-figure* stream_figure_fractory::create() //override
+figure *stream_figure_fractory::create()
 {
-    std::cout << "Enter figure description: ";
-    std::string line;
-    if (std::getline(input_stream, line)) {
-        string_to_figure converter;
-        return converter.create_from(line);
+    if (input_stream.eof())
+    {
+        return nullptr;
     }
-    return nullptr;
+
+    std::string line;
+    if (!std::getline(input_stream, line))
+    {
+        return nullptr;
+    }
+
+    // Use string_to_figure to convert the line to a figure object
+    string_to_figure converter;
+    return converter.create_from(line);
+    // If the line contains invalid figure parameters,
+    // string_to_figure will return nullptr
 }

@@ -15,6 +15,7 @@ private:
 public:
     circle();
     circle(const std::string input);
+    circle(double radius);
     //~circle();
     double perimeter() const override;
     std::string toString() const override;

@@ -1,6 +1,8 @@
 #include "contracts/triangle.hpp"
+#include <cmath>
 #include <iostream>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <cstring>
 
@@ -55,6 +57,23 @@ triangle::triangle(const std::string input)
         std::cerr << e.what() << '\n';
         side1 = side2 = side3 = perimeterField = 0;
     }
+}
+
+triangle::triangle(double side_a, double side_b, double side_c)
+{
+    if (side_a <= 0 || side_b <= 0 || side_c <= 0)
+    {
+        throw std::invalid_argument("Triangle sides must be positive values");
+    }
+
+    if (side_a + side_b <= side_c || side_a + side_c <= side_b || side_b + side_c <= side_a)
+    {
+        throw std::invalid_argument("Triangle inequality violated: sum of any two sides must exceed the third side");
+    }
+
+    setSide1(side_a);
+    setSide2(side_b);
+    setSide3(side_c);
 }
 
 void triangle::setSide1(double input)
