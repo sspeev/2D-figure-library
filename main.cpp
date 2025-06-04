@@ -1,6 +1,6 @@
 #include "factory/interfaces/figure_factory.hpp"
 #include "factory/interfaces/random_figure_factory.hpp"
-#include "factory/interfaces/stream_figure_fractory.hpp"
+#include "factory/interfaces/stream_figure_factory.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -19,7 +19,7 @@ int main()
     }
     else if (key == "S")
     {
-        factory = new stream_figure_fractory(std::cin);
+        factory = new stream_figure_factory(std::cin);
         // Clear the input stream after reading the option
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
