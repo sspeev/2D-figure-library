@@ -215,20 +215,20 @@ TEST_CASE("factory integration tests", "[factory][integration]")
     {
         std::istringstream circle_iss("circle 7");
         stream_figure_factory circle_factory(circle_iss);
-        std::unique_ptr<figure> fig(circle_factory.create());
-        REQUIRE(startsWith(fig->toString(), "circle"));
+        std::unique_ptr<figure> figCircle(circle_factory.create());
+        REQUIRE(startsWith(figCircle->toString(), "circle"));
 
         // We can test if it's really a circle by dynamic_cast
-        circle *c = dynamic_cast<circle *>(fig.get());
+        circle *c = dynamic_cast<circle *>(figCircle.get());
         REQUIRE(c != nullptr);
 
         std::istringstream triangle_iss("triangle 5 6 7");
         stream_figure_factory triangle_factory(triangle_iss);
-        std::unique_ptr<figure> fig(triangle_factory.create());
-        REQUIRE(startsWith(fig->toString(), "triangle"));
+        std::unique_ptr<figure> figTriangle(triangle_factory.create());
+        REQUIRE(startsWith(figTriangle->toString(), "triangle"));
 
         // We can test if it's really a triangle by dynamic_cast
-        triangle *t = dynamic_cast<triangle *>(fig.get());
+        triangle *t = dynamic_cast<triangle *>(figTriangle.get());
         REQUIRE(t != nullptr);
     }
 }

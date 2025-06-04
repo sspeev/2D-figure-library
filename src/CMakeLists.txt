@@ -14,11 +14,11 @@ add_library(2D-Figures STATIC
     # factory interfaces
     "factory/interfaces/figure_factory.hpp"
     "factory/interfaces/random_figure_factory.hpp"
-    "factory/interfaces/stream_figure_fractory.hpp"
+    "factory/interfaces/stream_figure_factory.hpp"
 
-    #factory implemamentations
+    #factory implementations
     "factory/implementations/random_figure_factory.cpp"
-    "factory/implementations/stream_figure_fractory.cpp"
+    "factory/implementations/stream_figure_factory.cpp"
 
     #}
 
