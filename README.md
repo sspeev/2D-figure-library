@@ -6,6 +6,7 @@ A C++ project built with CMake, providing a structured build system for cross-pl
 ## Prerequisites
 - CMake (version 3.10 or higher)
 - C++ compiler (GCC, Clang, MSVC)
+- Catch2 testing library
 
 ## Building the Project
 ```bash
@@ -56,12 +57,11 @@ cmake --build .
 ```
 
 ## Features
-- Cross-platform build system
 - Modular project structure
 - Easy dependency management
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+## Important
+In order to run tests you need to download the official Catch2 library from [GitHub](https://github.com/catchorg/Catch2). After downloading the folder you need to rename it if it is something different from "Catch2". Then put it in tests folder. See project structure for more info
