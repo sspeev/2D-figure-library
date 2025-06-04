@@ -5,9 +5,16 @@
 #include <random>
 #include <string>
 #include <sstream>
+#include <iomanip>
+#include <cmath>
 
 // Static random engine initialized once
 static std::mt19937 generator{std::random_device{}()};
+
+// Helper function to round to 2 decimal places
+double roundToTwoDecimals(double value) {
+    return std::round(value * 100.0) / 100.0;
+}
 
 figure* random_figure_factory::create() //override
 {
@@ -20,17 +27,14 @@ figure* random_figure_factory::create() //override
     
     if (figure_type == 0) {
         // Create a circle with random radius
-        double radius = param_distribution(generator);
+        double radius = roundToTwoDecimals(param_distribution(generator));
         
-        // Convert to string format for the constructor
-        std::ostringstream oss;
-        oss << "circle " << radius;
-        return new circle(oss.str());
+        return new circle(radius);
     }
     else {
         // Create triangle with random sides
-        double a = param_distribution(generator);
-        double b = param_distribution(generator);
+        double a = roundToTwoDecimals(param_distribution(generator));
+        double b = roundToTwoDecimals(param_distribution(generator));
         
         // Calculate valid range for third side to satisfy triangle inequality
         double min_c = std::abs(a - b) + 0.1;
@@ -38,11 +42,8 @@ figure* random_figure_factory::create() //override
         
         // Generate random third side within valid range
         std::uniform_real_distribution<double> side_c_distribution(min_c, max_c);
-        double c = side_c_distribution(generator);
+        double c = roundToTwoDecimals(side_c_distribution(generator));
         
-        // Convert to string format for the constructor
-        std::ostringstream oss;
-        oss << "triangle " << a << " " << b << " " << c;
-        return new triangle(oss.str());
+        return new triangle(a, b, c);
     }
 }

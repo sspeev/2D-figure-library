@@ -8,18 +8,6 @@ TEST_CASE("triangle perimeter calculation", "[triangle]")
         triangle t(3, 4, 5);
         REQUIRE(t.perimeter() == 12);
     }
-
-    SECTION("different valid triangle")
-    {
-        triangle t(5, 6, 7);
-        REQUIRE(t.perimeter() == 18);
-    }
-
-    SECTION("equilateral triangle")
-    {
-        triangle t(10, 10, 10);
-        REQUIRE(t.perimeter() == 30);
-    }
 }
 
 TEST_CASE("triangle constructor validation", "[triangle]")

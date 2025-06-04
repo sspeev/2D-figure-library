@@ -29,7 +29,7 @@ circle::circle(const std::string input)
             throw std::invalid_argument("Invalid input: Radius must be positive");
 
         setRadius(radius);
-        perimeter();
+        setLength();
     }
     catch (const std::exception &e)
     {
@@ -50,7 +50,10 @@ void circle::setRadius(double input)
 {
     radius = input;
 }
-
+void circle::setLength()
+{
+    length = calcLength();
+}
 double circle::perimeter() const //override
 {
     return length;
@@ -59,7 +62,7 @@ double circle::perimeter() const //override
 std::string circle::toString() const //override
 {
     std::ostringstream oss;
-    oss << "circle" << radius;
+    oss << "circle" << " " << radius;
     return oss.str();
 }
 

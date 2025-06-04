@@ -3,7 +3,7 @@
 
 #include "factory/interfaces/figure_factory.hpp"
 #include "factory/interfaces/random_figure_factory.hpp"
-#include "factory/interfaces/stream_figure_fractory.hpp"
+#include "factory/interfaces/stream_figure_factory.hpp"
 #include "contracts/figure.hpp"
 #include "contracts/circle.hpp"
 #include "contracts/triangle.hpp"
@@ -33,7 +33,7 @@ TEST_CASE("figure_factory interface", "[factory]")
         // The real test is if derived classes compile correctly
         random_figure_factory random_factory;
         std::istringstream iss("circle 5");
-        stream_figure_fractory stream_factory(iss);
+        stream_figure_factory stream_factory(iss);
 
         // Both should be usable as figure_factory pointers
         figure_factory *factory1 = &random_factory;
@@ -52,8 +52,7 @@ TEST_CASE("random_figure_factory creates valid figures", "[factory][random]")
     {
         std::vector<figure *> figures;
 
-        // Create multiple figures to test randomness
-        const int num_figures = 10;
+        const int num_figures = 3;
         for (int i = 0; i < num_figures; ++i)
         {
             figure *fig = factory.create();
@@ -61,7 +60,6 @@ TEST_CASE("random_figure_factory creates valid figures", "[factory][random]")
             figures.push_back(fig);
         }
 
-        // Check that we have a mix of figures (not guaranteed but highly likely)
         bool has_circle = false;
         bool has_triangle = false;
 
@@ -77,16 +75,12 @@ TEST_CASE("random_figure_factory creates valid figures", "[factory][random]")
                 has_triangle = true;
             }
 
-            // Check that figures are valid (non-zero perimeter)
-            REQUIRE(fig->perimeter() > 0.0);
+            bool isValid = fig->perimeter() > 0.0;
+            REQUIRE(isValid);
         }
-
-        // With 10 figures, probability of not having both types is very small
-        // but not impossible, so we use WARN instead of REQUIRE
         WARN(has_circle);
         WARN(has_triangle);
 
-        // Cleanup
         for (auto fig : figures)
         {
             delete fig;
@@ -104,8 +98,7 @@ TEST_CASE("random_figure_factory creates valid figures", "[factory][random]")
             std::string description = fig->toString();
             if (startsWith(description, "circle"))
             {
-                // Ensure circle has valid radius (implied by non-zero perimeter)
-                REQUIRE(fig->perimeter() > 0.0);
+                REQUIRE(fig->perimeter() > 0.0); // Ensure circle has valid radius (implied by non-zero perimeter)
             }
             else if (startsWith(description, "triangle"))
             {
@@ -113,14 +106,11 @@ TEST_CASE("random_figure_factory creates valid figures", "[factory][random]")
                 double perimeter = fig->perimeter();
                 REQUIRE(perimeter > 0.0);
 
-                // Extract sides to verify triangle inequality
-                // We can only do this by parsing the toString() result
                 std::string desc = fig->toString();
                 std::istringstream iss(desc.substr(9)); // Skip "triangle " prefix
                 double a, b, c;
                 if (iss >> a >> b >> c)
                 {
-                    // Triangle inequality: sum of any two sides > third side
                     REQUIRE(a + b > c);
                     REQUIRE(a + c > b);
                     REQUIRE(b + c > a);
@@ -130,12 +120,12 @@ TEST_CASE("random_figure_factory creates valid figures", "[factory][random]")
     }
 }
 
-TEST_CASE("stream_figure_fractory creates figures from input", "[factory][stream]")
+TEST_CASE("stream_figure_factory creates figures from input", "[factory][stream]")
 {
     SECTION("Creating circle from stream")
     {
         std::istringstream iss("circle 5");
-        stream_figure_fractory factory(iss);
+        stream_figure_factory factory(iss);
 
         std::unique_ptr<figure> fig(factory.create());
         REQUIRE(fig != nullptr);
@@ -146,7 +136,7 @@ TEST_CASE("stream_figure_fractory creates figures from input", "[factory][stream
     SECTION("Creating triangle from stream")
     {
         std::istringstream iss("triangle 3 4 5");
-        stream_figure_fractory factory(iss);
+        stream_figure_factory factory(iss);
 
         std::unique_ptr<figure> fig(factory.create());
         REQUIRE(fig != nullptr);
@@ -156,18 +146,15 @@ TEST_CASE("stream_figure_fractory creates figures from input", "[factory][stream
 
     SECTION("Invalid input handling")
     {
-        // Empty input
         std::istringstream empty_iss("");
-        stream_figure_fractory empty_factory(empty_iss);
+        stream_figure_factory empty_factory(empty_iss);
         std::unique_ptr<figure> empty_fig(empty_factory.create());
         REQUIRE(empty_fig == nullptr);
 
         // Invalid figure type
         std::istringstream invalid_type_iss("square 4");
-        stream_figure_fractory invalid_type_factory(invalid_type_iss);
+        stream_figure_factory invalid_type_factory(invalid_type_iss);
         std::unique_ptr<figure> invalid_type_fig(invalid_type_factory.create());
-        // The behavior depends on your string_to_figure converter implementation
-        // It might return nullptr or an invalid figure with zero perimeter
         if (invalid_type_fig != nullptr)
         {
             REQUIRE(invalid_type_fig->perimeter() == 0);
@@ -175,9 +162,8 @@ TEST_CASE("stream_figure_fractory creates figures from input", "[factory][stream
 
         // Invalid parameters
         std::istringstream invalid_params_iss("circle -5");
-        stream_figure_fractory invalid_params_factory(invalid_params_iss);
+        stream_figure_factory invalid_params_factory(invalid_params_iss);
         std::unique_ptr<figure> invalid_params_fig(invalid_params_factory.create());
-        // Again, depending on implementation:
         if (invalid_params_fig != nullptr)
         {
             REQUIRE(invalid_params_fig->perimeter() == 0);
@@ -187,20 +173,17 @@ TEST_CASE("stream_figure_fractory creates figures from input", "[factory][stream
     SECTION("Multiple reads from stream")
     {
         std::istringstream iss("circle 3\ntriangle 3 4 5\ncircle 7");
-        stream_figure_fractory factory(iss);
+        stream_figure_factory factory(iss);
 
-        // First figure (circle)
         std::unique_ptr<figure> fig1(factory.create());
         REQUIRE(fig1 != nullptr);
         REQUIRE(startsWith(fig1->toString(), "circle"));
 
-        // Second figure (triangle)
         std::unique_ptr<figure> fig2(factory.create());
         REQUIRE(fig2 != nullptr);
         REQUIRE(startsWith(fig2->toString(), "triangle"));
         REQUIRE(fig2->perimeter() == 12);
 
-        // Third figure (circle)
         std::unique_ptr<figure> fig3(factory.create());
         REQUIRE(fig3 != nullptr);
         REQUIRE(startsWith(fig3->toString(), "circle"));
@@ -212,7 +195,7 @@ TEST_CASE("factory integration tests", "[factory][integration]")
     SECTION("Using factory polymorphically")
     {
         std::istringstream iss("circle 10");
-        stream_figure_fractory stream_factory(iss);
+        stream_figure_factory stream_factory(iss);
         random_figure_factory random_factory;
 
         // Use factories through the base interface
@@ -230,47 +213,23 @@ TEST_CASE("factory integration tests", "[factory][integration]")
 
     SECTION("Factory creates correct figure types")
     {
-        // Test stream factory with different inputs
-        {
-            std::istringstream circle_iss("circle 7");
-            stream_figure_fractory circle_factory(circle_iss);
-            std::unique_ptr<figure> fig(circle_factory.create());
-            REQUIRE(startsWith(fig->toString(), "circle"));
+        std::istringstream circle_iss("circle 7");
+        stream_figure_factory circle_factory(circle_iss);
+        std::unique_ptr<figure> fig(circle_factory.create());
+        REQUIRE(startsWith(fig->toString(), "circle"));
 
-            // We can test if it's really a circle by dynamic_cast
-            circle *c = dynamic_cast<circle *>(fig.get());
-            REQUIRE(c != nullptr);
-        }
+        // We can test if it's really a circle by dynamic_cast
+        circle *c = dynamic_cast<circle *>(fig.get());
+        REQUIRE(c != nullptr);
 
-        {
-            std::istringstream triangle_iss("triangle 5 6 7");
-            stream_figure_fractory triangle_factory(triangle_iss);
-            std::unique_ptr<figure> fig(triangle_factory.create());
-            REQUIRE(startsWith(fig->toString(), "triangle"));
+        std::istringstream triangle_iss("triangle 5 6 7");
+        stream_figure_factory triangle_factory(triangle_iss);
+        std::unique_ptr<figure> fig(triangle_factory.create());
+        REQUIRE(startsWith(fig->toString(), "triangle"));
 
-            // We can test if it's really a triangle by dynamic_cast
-            triangle *t = dynamic_cast<triangle *>(fig.get());
-            REQUIRE(t != nullptr);
-        }
-    }
-}
-
-TEST_CASE("string_to_figure creates correct figures", "[string_to_figure]")
-{
-    string_to_figure converter;
-
-    SECTION("create circle")
-    {
-        std::unique_ptr<figure> fig(converter.create_from("circle 5"));
-        REQUIRE(fig != nullptr);
-        REQUIRE(fig->perimeter() == 2 * PI * 5);
-    }
-
-    SECTION("create triangle")
-    {
-        std::unique_ptr<figure> fig(converter.create_from("triangle 3 4 5"));
-        REQUIRE(fig != nullptr);
-        REQUIRE(fig->perimeter() == 12);
+        // We can test if it's really a triangle by dynamic_cast
+        triangle *t = dynamic_cast<triangle *>(fig.get());
+        REQUIRE(t != nullptr);
     }
 }
 

@@ -1,13 +1,13 @@
-#include "factory/interfaces/stream_figure_fractory.hpp"
+#include "factory/interfaces/stream_figure_factory.hpp"
 #include "utilities/string_to_figure.hpp"
 #include <string>
 
-stream_figure_fractory::stream_figure_fractory(std::istream &istream)
+stream_figure_factory::stream_figure_factory(std::istream &istream)
     : input_stream(istream)
 {
 }
 
-figure *stream_figure_fractory::create()
+figure *stream_figure_factory::create()
 {
     if (input_stream.eof())
     {

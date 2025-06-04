@@ -74,6 +74,7 @@ triangle::triangle(double side_a, double side_b, double side_c)
     setSide1(side_a);
     setSide2(side_b);
     setSide3(side_c);
+    setPerimeter();
 }
 
 void triangle::setSide1(double input)

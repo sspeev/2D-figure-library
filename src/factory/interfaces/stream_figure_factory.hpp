@@ -3,12 +3,12 @@
 #include "factory/interfaces/figure_factory.hpp"
 #include <istream>
 
-class stream_figure_fractory : public figure_factory {
+class stream_figure_factory : public figure_factory {
 private:
     std::istream& input_stream;
 
 public:
-    stream_figure_fractory(std::istream& is);
+    stream_figure_factory(std::istream& is);
     figure* create() override;
 };
 

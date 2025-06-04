@@ -11,6 +11,7 @@ private:
 
     double calcLength();
     void setRadius(double input);
+    void setLength();
 
 public:
     circle();
