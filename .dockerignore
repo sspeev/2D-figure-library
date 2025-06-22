@@ -1,0 +1,30 @@
+# Exclude all build artifacts
+build/
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.o
+*.obj
+
+# IDE files and configurations
+.vs/
+.idea/
+.vscode/
+*.suo
+*.user
+
+# Version control
+.git/
+.github/
+.gitignore
+
+# Docker files
+Dockerfile
+.dockerignore
+
+# Documentation and other non-source files
+*.md
+LICENSE
