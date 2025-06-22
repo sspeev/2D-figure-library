@@ -41,6 +41,7 @@ cmake --build .
 │   │   └── string_to_figure.hpp    # String to figure conversion utility
 │   └── CMakeLists.txt              # Source CMake file
 ├── tests/
+│   ├──Catch2/                      #tesing library
 │   ├── circle-tests.cpp            # Tests for circle class
 │   ├── triangle-tests.cpp          # Tests for triangle class
 │   ├── factory-tests.cpp           # Tests for factories
